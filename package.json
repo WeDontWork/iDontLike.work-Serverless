@@ -6,6 +6,10 @@
   "author": "Jibin Mathews <jibinmathews7@gmail.com>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "deploy:prod": "NODE_ENV=production ./deploy.sh",
+    "deploy:dev": "./deploy.sh"
+  },
   "dependencies": {
     "aws-sdk": "^2.224.1"
   }

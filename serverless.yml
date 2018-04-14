@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: IDontLikeWork-ReasonUploader # NOTE: update this with your service name
+service: IDontLikeWorkServer # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -26,30 +26,29 @@ provider:
   onError: "arn:aws:sns:ap-south-1:591882575573:idontlikework"
 
 # you can overwrite defaults here
-  stage: production
+  stage: ${env:NODE_ENV, "dev"}
   region: ap-south-1
 
 # you can add statements to the Lambda function's IAM Role here
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - "s3:ListBucket"
-      Resource: "arn:aws:s3:::idontlikework/*"
+        - "s3:*"
+      Resource: "arn:aws:s3:::idontlikework"
     - Effect: "Allow"
       Action:
-        - "s3:PutObject"
-      Resource: "arn:aws:s3:::idontlikework/*"
-    - Effect: "Allow"
-      Action:
-        - "s3:GetObject"
+        - "s3:*"
       Resource: "arn:aws:s3:::idontlikework/*"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+  environment:
+    NODE_ENV: ${env:NODE_ENV, "dev"}
+  apiKeys:
+    - access_key
+
 
 functions:
-  hello:
+  createWFHReason:
     handler: handler.createWFHReason
     description: "Main function which handles creating new reasons"
     events: 
@@ -57,6 +56,7 @@ functions:
             path: wfh-reason/create
             method: POST
             cors: true
+            private: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
