@@ -1,0 +1,12 @@
+{
+  "name": "iDontLike.work-Serverless",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "repository": "git@github.com:WeDontWork/iDontLike.work-Serverless.git",
+  "author": "Jibin Mathews <jibinmathews7@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "aws-sdk": "^2.224.1"
+  }
+}
