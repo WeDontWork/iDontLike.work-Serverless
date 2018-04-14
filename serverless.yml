@@ -20,9 +20,13 @@ service: IDontLikeWork-ReasonUploader # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs8.10
+  memorySize: 512
+  timeout: 120
+  versionFunctions: false
+  onError: "arn:aws:sns:ap-south-1:591882575573:idontlikework"
 
 # you can overwrite defaults here
-#  stage: dev
+  stage: production
   region: ap-south-1
 
 # you can add statements to the Lambda function's IAM Role here
@@ -44,18 +48,15 @@ provider:
 #  environment:
 #    variable1: value1
 
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
-
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.createWFHReason
+    description: "Main function which handles creating new reasons"
+    events: 
+        - http:
+            path: wfh-reason/create
+            method: POST
+            cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
