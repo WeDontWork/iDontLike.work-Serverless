@@ -44,7 +44,7 @@ provider:
   environment:
     NODE_ENV: ${env:NODE_ENV, "dev"}
   apiKeys:
-    - access_key
+    - ${env:NODE_ENV, "dev"}-access_key
 
 
 functions:
@@ -57,6 +57,17 @@ functions:
             method: POST
             cors: true
             private: true
+
+  listWFHReasons:
+    handler: handler.listWFHReasons
+    description: 'Lists all existing reasons'
+    events:
+        - http: 
+            path: wfh-reason/list
+            method: GET
+            cors: true
+            private: true
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

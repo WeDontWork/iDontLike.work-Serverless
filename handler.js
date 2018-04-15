@@ -31,7 +31,18 @@ module.exports.createWFHReason = (event, context, callback) => {
     .catch(err => {
       return sendResponse(err, err, event, callback);
     });
+};
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
+module.exports.listWFHReasons = (event, context, callback) => {
+  lib
+    .handleReasonList()
+    .then(result => {
+      if (result.success) {
+        return sendResponse(null, result.message, event, callback);
+      }
+      return sendResponse(result.error, result.error, event, callback);
+    })
+    .catch(err => {
+      return sendResponse(err, err, event, callback);
+    });
 };
