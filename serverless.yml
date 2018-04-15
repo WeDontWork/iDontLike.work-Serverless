@@ -67,6 +67,20 @@ functions:
             method: GET
             cors: true
             private: true
+          
+  deleteWFHReasons:
+    handler: handler.deleteWFHReason
+    description: 'Deletes a reason'
+    events:
+        - http:
+            path: wfh-reason/delete/{id}
+            method: DELETE
+            cors: true
+            private: true
+            request:
+              parameters:
+                paths:
+                  id: true
 
 
 #    The following are a few example events you can configure

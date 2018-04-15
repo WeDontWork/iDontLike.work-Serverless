@@ -46,3 +46,18 @@ module.exports.listWFHReasons = (event, context, callback) => {
       return sendResponse(err, err, event, callback);
     });
 };
+
+module.exports.deleteWFHReason = (event, context, callback) => {
+  console.log(event);
+  lib
+    .handleReasonDelete(event.pathParameters.id)
+    .then(result => {
+      if (result.success) {
+        return sendResponse(null, result.message, event, callback);
+      }
+      return sendResponse(result.error, result.error, event, callback);
+    })
+    .catch(err => {
+      return sendResponse(err, err, event, callback);
+    });
+};
